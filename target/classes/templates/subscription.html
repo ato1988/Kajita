@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kushki TEST API</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" href="https://cdn-uat.kushkipagos.com/favicon.ico"
+	type="image/jpg" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="card text-center border-primary">
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="pills-home-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-home" type="button"
+					role="tab" aria-controls="pills-home" aria-selected="true">SUBSCRIPCION BAJO DEMANDA</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-profile-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-profile" type="button"
+					role="tab" aria-controls="pills-profile" aria-selected="false">PRE AUTORIZACION DE PAGO</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-contact-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-contact" type="button"
+					role="tab" aria-controls="pills-contact" aria-selected="false">CAPTURA PRE AUTORIZACION DE PAGO</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-get-subs-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-get-subs" type="button"
+					role="tab" aria-controls="pills-get-subs" aria-selected="false">OBTENER INFORMACION SUBSCRIPCION</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-void-trans-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-void-trans" type="button"
+					role="tab" aria-controls="pills-void-trans" aria-selected="false">INVALIDAR TRANSACCION</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-list-trans-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-list-trans" type="button"
+					role="tab" aria-controls="pills-list-trans" aria-selected="false">LISTAR TRANSACCIONES</button>
+			</li>
+		</ul>
+		<div class="tab-content" id="pills-tabContent">
+			<div class="tab-pane fade show active" id="pills-home"
+				role="tabpanel" aria-labelledby="pills-home-tab">
+				<div class="card-header">SUBSCRIPCION BAJO DEMANDA</div>
+				<div class="card-body">
+					<b>TOKEN:</b>
+					<p id="token" th:text=${response.kushkiToken}></p>
+					<b>CARD ID:</b>
+					<p th:text=${response.cart_id}></p>
+					<b>PAYMENT METHOD:</b>
+					<p th:text=${response.kushkiPaymentMethod}></p>
+
+					<form id="form" action="#" th:action="@{/subscription}"
+						th:object="${subscripcion}" method="post">
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text">Token</span> <input type="text"
+								class="form-control" id="token_data" th:field="*{token_data}">
+						</div>
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text">Nombre</span> <input type="text"
+								class="form-control" id="nombre" th:field="*{nombre}">
+						</div>
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text">Apellido</span> <input type="text"
+								class="form-control" id="apellido" th:field="*{apellido}">
+						</div>
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text">Documento</span> <input
+								type="text" class="form-control" id="documento"
+								th:field="*{documento}">
+						</div>
+						<input style="margin-top: 20px" id="subscripcion" type="submit"
+							class="btn btn-primary" value="Suscribirse Ahora">
+					</form>
+					<span class="label label-primary" style="margin-top: 50px"
+						th:text="'content: ' + ${subscripcion.mensaje}"
+						th:if="${subscripcion.mensaje != null && subscripcion.tipo == 'subscripcion'}"></span>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+				aria-labelledby="pills-profile-tab">
+				<div class="card text-center border-primary">
+					<div class="card-header">PRE AUTORIZACION DE PAGO</div>
+					<div class="card-body">
+						<b>TOKEN:</b>
+						<p id="token" th:text=${response.kushkiToken}></p>
+
+						<form id="form" action="#" th:action="@{/preAuthorization}"
+							th:object="${subscripcion}" method="post">
+							<div class="input-group input-group-sm mb-4">
+								<span class="input-group-text">Token</span> <input type="text"
+									class="form-control" id="token_data" th:field="*{token_data}">
+							</div>
+							<input style="margin-top: 20px" id="subscripcion" type="submit"
+								class="btn btn-primary" value="Pre-Autorizar Pago">
+						</form>
+						<span class="label label-primary" style="margin-top: 50px"
+							th:text="'content: ' + ${subscripcion.mensaje}"
+							th:if="${subscripcion.mensaje != null && subscripcion.tipo == 'pre-auth'}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+				aria-labelledby="pills-contact-tab">
+				<div class="card text-center border-primary">
+					<div class="card-header">CAPTURA PRE AUTORIZACION DE PAGO</div>
+					<div class="card-body">
+						<form id="form" action="#" th:action="@{/capPreAuthorization}"
+							th:object="${subscripcion}" method="post">
+							<div class="input-group input-group-sm mb-4">
+								<span class="input-group-text">NUMERO DE TICKET</span> <input type="text"
+									class="form-control" id="numTicket" th:field="*{numTicket}">
+							</div>
+							<input style="margin-top: 20px" id="subscripcion" type="submit"
+								class="btn btn-primary" value="Cap. Pre-Autorizar Pago">
+						</form>
+						<span class="label label-primary" style="margin-top: 50px"
+							th:text="'content: ' + ${subscripcion.mensaje}"
+							th:if="${subscripcion.mensaje != null && subscripcion.tipo == 'cap-pre-auth'}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-get-subs" role="tabpanel"
+				aria-labelledby="pills-get-subs-tab">
+				<div class="card text-center border-primary">
+					<div class="card-header">OBTENER INFORMACION SUBSCRIPCION</div>
+					<div class="card-body">
+						<form id="form" action="#" th:action="@{/getSubscription}"
+							th:object="${subscripcion}" method="post">
+							<div class="input-group input-group-sm mb-4">
+								<span class="input-group-text">ID SUBSCRIPCION</span> <input type="text"
+									class="form-control" id="idSubscripcion" th:field="*{idSubscripcion}">
+							</div>
+							<input style="margin-top: 20px" id="get-subscripcion" type="submit"
+								class="btn btn-primary" value="obtener">
+						</form>
+						<span class="label label-primary" style="margin-top: 50px"
+							th:text="'content: ' + ${subscripcion.mensaje}"
+							th:if="${subscripcion.mensaje != null && subscripcion.tipo == 'get-subscription'}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-void-trans" role="tabpanel"
+				aria-labelledby="pills-void-trans-tab">
+				<div class="card text-center border-primary">
+					<div class="card-header">INVALIDAR TRANSACCION</div>
+					<div class="card-body">
+						<form id="form" action="#" th:action="@{/voidTransaction}"
+							th:object="${subscripcion}" method="post">
+							<div class="input-group input-group-sm mb-4">
+								<span class="input-group-text">NUMERO DE TICKET</span> <input type="text"
+									class="form-control" id="numTicket" th:field="*{numTicket}">
+							</div>
+							<input style="margin-top: 20px" id="void-subscription" type="submit"
+								class="btn btn-primary" value="Invalidar">
+						</form>
+						<span class="label label-primary" style="margin-top: 50px"
+							th:text="'content: ' + ${subscripcion.mensaje}"
+							th:if="${subscripcion.mensaje != null && subscripcion.tipo == 'void-subscription'}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-list-trans" role="tabpanel"
+				aria-labelledby="pills-listtrans-tab">
+				<div class="card text-center border-primary">
+					<div class="card-header">LISTAR TRANSACCIONES</div>
+					<div class="card-body">
+						<form id="form" action="#" th:action="@{/getTransactionList}"
+							th:object="${subscripcion}" method="post">
+							<div class="input-group input-group-sm mb-4">
+								<span class="input-group-text">PARAMETROS</span> <input type="text"
+									class="form-control" id="numTicket" th:field="*{parametro}">
+							</div>
+							<input style="margin-top: 20px" id="list-subscription" type="submit"
+								class="btn btn-primary" value="Buscar">
+						</form>
+						<span class="label label-primary" style="margin-top: 50px"
+							th:text="'content: ' + ${subscripcion.mensaje}"
+							th:if="${subscripcion.mensaje != null && subscripcion.tipo == 'get-trx-list'}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

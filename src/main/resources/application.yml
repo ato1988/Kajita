@@ -1,0 +1,12 @@
+server:    
+  error:
+    include-message: always
+  servlet:
+    context-path: /Kajita
+    session:
+      timeout: 30m
+  port: 8080
+  
+  
+app: 
+  private-key: 8df5be361c25481fae3b72b3028592c8

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kushki TEST API</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="https://cdn.kushkipagos.com/kushki-checkout.js"></script>
+<link rel="icon" href="https://cdn-uat.kushkipagos.com/favicon.ico"
+	type="image/jpg" />
+</head>
+<body>
+	<form id="kushki-pay-form" action="confirm" method="post">
+		<input type="hidden" name="cart_id" value="123">
+	</form>
+
+	<script type="text/javascript">		
+		var kushki = new KushkiCheckout({
+			form : "kushki-pay-form",
+			merchant_id : "d3f220c747294de68c1d11b7de23593b",
+			amount : "15",
+			currency : "USD",
+			payment_methods : [ "credit-card" ],
+			is_subscription : true,
+			inTestEnvironment : true,
+			regional : false
+		});
+	</script>
+</body>
+</html>
